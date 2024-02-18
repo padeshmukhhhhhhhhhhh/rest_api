@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"> </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center">CUSTOM API</h1>
+    <div style="display:flex; justify-content:center">
+        <input id="in" style="border-radius: 4px; width: 100px; height: 50px; margin-right: 20px; ">
+        <br>
+        <button id="btn" style="border-radius: 4px; width: 100px; height: 50px; background-color: blueviolet; color: white;">submit</button>
+        <br>
+       
+    </div>
+    <div style="display:flex; justify-content:center"> <p id="out"></p></div>
+</body>
+<script>
+    $(document).ready(function() {
+
+        $("#btn").click(function() {
+           values= $("#in").val().trim()
+
+           console.log(values)
+           $.ajax({
+                url:"http://127.0.0.1:8000/api/"+values+"",
+                type:"GET",
+                dataType:"text",
+                success:answer,
+                error:fail
+
+
+
+           }); 
+           console.log
+
+           function answer(data){
+                result=JSON.parse(data);
+                console.log(result[0])
+                $("#out").html("firstname   "+result[0].first+"<br>"+"laststname   "+result[0].last+"<br>"+"address   "+result[0].address+"<br>"+"phone   "+result[0].phone+"<br>"+"email "+result[0].email)
+
+           }
+
+           function fail(){
+                console.log("error");
+                
+
+           }
+        });
+
+    });
+</script>
+</html>
